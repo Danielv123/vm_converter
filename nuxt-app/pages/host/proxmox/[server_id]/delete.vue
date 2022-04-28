@@ -1,6 +1,6 @@
 <script setup>
 const route = useRoute();
-const resp = await useFetch(`/api/host/esxi/${route.params.server_id}/view`);
+const resp = await useFetch(`/api/host/proxmox/${route.params.server_id}/view`);
 const server = resp.data;
 const { pending, error, refresh } = resp;
 </script>
@@ -8,7 +8,7 @@ const { pending, error, refresh } = resp;
 <script>
 const deleteServer = async (cb) => {
   const route = useRoute();
-  await useFetch(`/api/host/esxi/${route.params.server_id}/delete`);
+  await useFetch(`/api/host/proxmox/${route.params.server_id}/delete`);
   cb();
 };
 </script>
@@ -16,7 +16,7 @@ const deleteServer = async (cb) => {
 <template>
   <div>
     <!-- {{ server }} -->
-    <h2>Delete esxi server configuration?</h2>
+    <h2>Delete proxmox server configuration?</h2>
     {{ $route.params.server_id }}
     {{ server }}
     <button

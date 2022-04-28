@@ -4,7 +4,7 @@
       <h1>VM converter</h1>
       <div id="navbuttons">
         <NuxtLink to="/">Home</NuxtLink>
-        <NuxtLink to="/manage_hosts_esxi">Manage hosts</NuxtLink>
+        <NuxtLink to="/host/list">Hosts</NuxtLink>
         </div>
     </div>
     <div id="content">

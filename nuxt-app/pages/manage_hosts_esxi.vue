@@ -2,6 +2,7 @@
 const resp = await useFetch("/api/servers");
 const servers = resp.data;
 const { pending, error, refresh } = resp;
+refresh();
 </script>
 
 <template>
@@ -22,20 +23,12 @@ const { pending, error, refresh } = resp;
             <td>{{ server.ip }}</td>
             <td>{{ server.type }}</td>
             <td>
-              <button
-                type="button"
-                class="btn btn-primary"
-                @click="this.$router.push(`/host/esxi/${server.id}/view`);"
+              <NuxtLink v-bind:to="`/host/esxi/${server.id}/view`">
+                <button class="btn btn-primary">View</button></NuxtLink
               >
-                View
-              </button>
-              <button
-                type="button"
-                class="btn btn-danger"
-                @click="this.$router.push(`/host/esxi/${server.id}/delete`);"
-              >
-                Delete
-              </button>
+              <NuxtLink v-bind:to="`/host/esxi/${server.id}/delete`">
+                <button type="button" class="btn btn-danger">Delete</button>
+              </NuxtLink>
             </td>
           </tr>
         </tbody>
