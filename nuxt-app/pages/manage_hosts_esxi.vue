@@ -25,14 +25,14 @@ const { pending, error, refresh } = resp;
               <button
                 type="button"
                 class="btn btn-primary"
-                @click="this.$router.push(`/host/esxi/${server.id}`);"
+                @click="this.$router.push(`/host/esxi/${server.id}/view`);"
               >
-                Edit
+                View
               </button>
               <button
                 type="button"
                 class="btn btn-danger"
-                @click="deleteServer(server)"
+                @click="this.$router.push(`/host/esxi/${server.id}/delete`);"
               >
                 Delete
               </button>

@@ -12,5 +12,5 @@ export default defineNuxtConfig({
       },
     },
   },
-  ssr: false, // Made things harder to debug
+//   ssr: false, // Made things harder to debug
 });
