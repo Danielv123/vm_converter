@@ -7,9 +7,11 @@ const defaultDatastore = {
   servers: [
     {
       id: "1",
-      name: "Server 1",
+      name: "Esxi 1",
       ip: "192.168.10.52",
-      type: "proxmox",
+      type: "esxi",
+      username: "root",
+      password: "Monster123!",
     },
     {
       id: "2",
