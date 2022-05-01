@@ -9,11 +9,10 @@ export default defineEventHandler(async (event): Promise<string> => {
     throw new Error("Server not found");
   }
 
-  const shell = await get_pwsh_session(server);
+  let shell = await get_pwsh_session(server);
 
-  // let output = await runShellCommand(`pwsh -c "Connect-VIServer -Server 192.168.10.52 -User root -Password 'Monster123!'; Get-VM"`);
   let output = await shell.invoke(
-    `Get-VM -Server ${server.ip} | Select-Object -Property Name,Uid,PowerState,NumCpu,CoresPerSocket,MemoryMB,HardwareVersion,PersistendId,GuestId,UsedSpaceGB,ProvisionedSpaceGB,DatastoreIdList,CreateDate,Id | ConvertTo-Json -Compress -Depth 99`,
+    `Get-VM -Server ${server.ip} '${event.context.params.vmid.split("%20").join(" ")}' | Select-Object -Property Name,Uid,PowerState,NumCpu,CoresPerSocket,MemoryMB,HardwareVersion,PersistendId,GuestId,UsedSpaceGB,ProvisionedSpaceGB,DatastoreIdList,CreateDate,Id | ConvertTo-Json -Compress -Depth 99`,
   );
   // await runShellCommand("pwsh -c Get-VM");
 

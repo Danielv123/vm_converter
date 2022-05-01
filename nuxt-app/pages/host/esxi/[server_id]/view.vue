@@ -1,50 +1,91 @@
 <script setup>
+import { Table } from "ant-design-vue";
+const { $store } = useNuxtApp();
 const route = useRoute();
 
 const resp = await useFetch(`/api/host/esxi/${route.params.server_id}/view`);
 const server = resp.data;
 const { pending, error, refresh } = resp;
 
-const resp_vms = await useFetch(
+const { pending: vms_pending, data: vms } = useFetch(
   `/api/host/esxi/${route.params.server_id}/list_vms`,
+  {
+    lazy: true,
+    transform: (data) => {
+      let vms = JSON.parse(data);
+      return vms.map((vm) => {
+        return {
+          ...vm,
+          powerState: powerStates[vm.PowerState],
+          key: vm.Uid,
+        };
+      });
+    },
+  },
 );
-const vms = resp_vms.data;
+
 const powerStates = {
   1: "Running",
   0: "Stopped",
   2: "Suspended",
   unknown: "Unknown",
 };
-</script>
 
+let editing_server = ref(false);
+function toggleEdit() {
+  editing_server.value = !editing_server.value;
+  console.log("Editing: ", editing_server.value);
+}
+</script>
 <template>
   <div>
     <!-- {{ server }} -->
-    <h2>esxi server overview</h2>
-    {{ $route.params.server_id }}
-    {{ server }}
+    <a-typography-title :level="2">Server overview</a-typography-title>
+    <a-skeleton :loading="pending">
+      <a-descriptions bordered title="Server settings" size="small">
+        <template #extra>
+          <a-button type="primary" v-on:click="toggleEdit">Edit</a-button>
+        </template>
+        <a-descriptions-item label="Server ID"
+          ><editable-text :value="server.id" :editing="editing_server"
+        /></a-descriptions-item>
+        <a-descriptions-item label="Name">{{
+          server.name
+        }}</a-descriptions-item>
+        <a-descriptions-item label="IP address">{{
+          server.ip
+        }}</a-descriptions-item>
+        <a-descriptions-item label="Type">{{
+          server.type
+        }}</a-descriptions-item>
+        <a-descriptions-item label="Username">{{
+          server.username
+        }}</a-descriptions-item>
+        <a-descriptions-item label="Password">{{
+          server.password
+        }}</a-descriptions-item>
+      </a-descriptions>
+    </a-skeleton>
     <h2>vms</h2>
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>name</th>
-            <th>state</th>
-            <th>memory</th>
-            <th>cores</th>
-            <th>id</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="vm in JSON.parse(vms)">
-            <td>{{ vm.Name }}</td>
-            <td>{{ powerStates[vm.PowerState] }}</td>
-            <td>{{ vm.MemoryMB }}</td>
-            <td>{{ vm.NumCpu }}</td>
-            <td>{{ vm.Id }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div>
+        <a-table :dataSource="vms" :loading="vms_pending" size="small">
+          <a-table-column title="Name" dataIndex="Name" key="Name" />
+          <a-table-column title="State" dataIndex="powerState" key="State" />
+          <a-table-column title="Memory" dataIndex="MemoryMB" key="Memory">
+            <template #default="{ value: memory }">
+              <span> {{ memory / 1024 }} GiB</span>
+            </template>
+          </a-table-column>
+          <a-table-column title="Cores" dataIndex="NumCpu" key="NumCpu" />
+          <a-table-column title="Id" dataIndex="Id" key="Id">
+            <template #default="{ record, value: vmId }">
+              <span>{{ vmId }}</span>
+              <start-stop-vm-button :type="server.type" :server_id="route.params.server_id" :name="record.Name" />
+            </template>
+          </a-table-column>
+        </a-table>
+      </div>
     </div>
   </div>
 </template>
