@@ -16,7 +16,6 @@ const { pending: vms_pending, data: vms } = useFetch(
       return vms.map((vm) => {
         return {
           ...vm,
-          powerState: powerStates[vm.PowerState],
           key: vm.Uid,
         };
       });
@@ -25,10 +24,10 @@ const { pending: vms_pending, data: vms } = useFetch(
 );
 
 const powerStates = {
-  1: "Running",
-  0: "Stopped",
-  2: "Suspended",
-  unknown: "Unknown",
+  1: { text: "Running", color: "green" },
+  0: { text: "Stopped", color: "red" },
+  2: { text: "Suspended", color: "yellow" },
+  unknown: { text: "Unknown", color: "gray" },
 };
 
 let editing_server = ref(false);
@@ -71,7 +70,13 @@ function toggleEdit() {
       <div>
         <a-table :dataSource="vms" :loading="vms_pending" size="small">
           <a-table-column title="Name" dataIndex="Name" key="Name" />
-          <a-table-column title="State" dataIndex="powerState" key="State" />
+          <a-table-column title="State" dataIndex="PowerState" key="State">
+            <template #default="{ value: PowerState }">
+              <a-tag :color="powerStates[PowerState == undefined? 'unknown' : PowerState]?.color">{{
+                powerStates[PowerState == undefined? 'unknown' : PowerState]?.text
+              }}</a-tag>
+            </template>
+          </a-table-column>
           <a-table-column title="Memory" dataIndex="MemoryMB" key="Memory">
             <template #default="{ value: memory }">
               <span> {{ memory / 1024 }} GiB</span>
@@ -81,7 +86,11 @@ function toggleEdit() {
           <a-table-column title="Id" dataIndex="Id" key="Id">
             <template #default="{ record, value: vmId }">
               <span>{{ vmId }}</span>
-              <start-stop-vm-button :type="server.type" :server_id="route.params.server_id" :name="record.Name" />
+              <start-stop-vm-button
+                :type="server.type"
+                :server_id="route.params.server_id"
+                :name="record.Name"
+              />
             </template>
           </a-table-column>
         </a-table>
