@@ -1,33 +1,33 @@
 <template>
   <div class="test2">
     <a-button
-      v-if="[-1].includes(vm?.PowerState)"
+      v-if="[-1].includes(props.vm?.PowerState)"
       type="primary"
       :disabled="true"
-      :loading="vm_pending || loading"
+      :loading="loading"
       size="small"
       >Start</a-button
     >
     <a-button
-      v-if="[0].includes(vm?.PowerState)"
+      v-if="[0].includes(props.vm?.PowerState)"
       size="small"
-      :loading="vm_pending || loading"
-      v-on:click="start_vm(vm)"
+      :loading="loading"
+      v-on:click="start_vm(props.vm)"
       >Start</a-button
     >
     <a-button
-      v-if="[1].includes(vm?.PowerState)"
+      v-if="[1].includes(props.vm?.PowerState)"
       size="small"
-      :loading="vm_pending || loading"
-      v-on:click="stop_vm(vm)"
+      :loading="loading"
+      v-on:click="stop_vm(props.vm)"
       danger
       >Stop</a-button
     >
     <a-button
-      v-if="[2].includes(vm?.PowerState)"
+      v-if="[2].includes(props.vm?.PowerState)"
       size="small"
-      :loading="vm_pending || loading"
-      v-on:click="start_vm(vm)"
+      :loading="loading"
+      v-on:click="start_vm(props.vm)"
       >Resume</a-button
     >
   </div>
@@ -40,26 +40,11 @@ const props = defineProps({
   server_id: String,
   name: String,
   update_vm: Function,
+  vm: Object,
 });
 
-const loading = ref(true);
-
-// Get VM status
-const {
-  pending: vm_pending,
-  data: vm,
-  refresh,
-} = useFetch(
-  `/api/host/esxi/${route.params.server_id}/vm/${props.name}/status`,
-  {
-    lazy: true,
-    transform: (data) => {
-      console.log("Got VM:", JSON.parse(data));
-      loading.value = false;
-      return JSON.parse(data);
-    },
-  },
-);
+// Loading indicator for actions
+const loading = ref(false);
 
 async function start_vm(vm) {
   console.log(`Starting`, vm.Name);
@@ -68,8 +53,6 @@ async function start_vm(vm) {
     `/api/host/esxi/${route.params.server_id}/vm/${props.name}/start`,
   );
   loading.value = false;
-  // vm.PowerState = 1;
-  refresh();
   props.update_vm?.(vm);
 }
 
@@ -80,8 +63,6 @@ async function stop_vm(vm) {
     `/api/host/esxi/${route.params.server_id}/vm/${props.name}/stop`,
   );
   loading.value = false;
-  // vm.PowerState = 0;
-  refresh();
   props.update_vm?.(vm);
 }
 </script>

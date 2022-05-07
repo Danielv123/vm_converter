@@ -1,5 +1,4 @@
 <script setup>
-import { Table } from "ant-design-vue";
 const { $store } = useNuxtApp();
 const route = useRoute();
 
@@ -22,6 +21,13 @@ const { pending: vms_pending, data: vms, refresh: refreshVms } = useFetch(
     },
   },
 );
+
+const hideLoading = ref(false);
+setInterval(async () => {
+  hideLoading.value = true;
+  await refreshVms();
+  hideLoading.value = false;
+}, 10000);
 
 const powerStates = {
   1: { text: "Running", color: "green" },
@@ -68,7 +74,7 @@ function toggleEdit() {
     <h2>vms</h2>
     <div>
       <div>
-        <a-table :dataSource="vms" :loading="vms_pending" size="small">
+        <a-table :dataSource="vms" :loading="vms_pending && !hideLoading" size="small">
           <a-table-column title="Name" dataIndex="Name" key="Name" />
           <a-table-column title="State" dataIndex="PowerState" key="State">
             <template #default="{ value: PowerState }">
@@ -91,6 +97,7 @@ function toggleEdit() {
                 :server_id="route.params.server_id"
                 :name="record.Name"
                 :update_vm="refreshVms"
+                :vm="record"
               />
             </template>
           </a-table-column>
