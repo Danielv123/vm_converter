@@ -7,7 +7,7 @@ const resp = await useFetch(`/api/host/esxi/${route.params.server_id}/view`);
 const server = resp.data;
 const { pending, error, refresh } = resp;
 
-const { pending: vms_pending, data: vms } = useFetch(
+const { pending: vms_pending, data: vms, refresh: refreshVms } = useFetch(
   `/api/host/esxi/${route.params.server_id}/list_vms`,
   {
     lazy: true,
@@ -90,6 +90,7 @@ function toggleEdit() {
                 :type="server.type"
                 :server_id="route.params.server_id"
                 :name="record.Name"
+                :update_vm="refreshVms"
               />
             </template>
           </a-table-column>
