@@ -20,7 +20,7 @@
       size="small"
       :loading="loading"
       v-on:click="suspend_vm(props.vm)"
-      danger
+      class="warning"
       >Suspend</a-button
     >
     <a-button
@@ -88,5 +88,10 @@ async function suspend_vm(vm) {
 <style>
 .test2 {
   float: right;
+}
+.warning {
+  background: transparent;
+  border-color: #a79a2d;
+  color: #a79a2d;
 }
 </style>

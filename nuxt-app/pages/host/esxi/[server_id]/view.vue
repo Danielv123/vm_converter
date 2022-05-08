@@ -104,5 +104,6 @@ function toggleEdit() {
         </a-table>
       </div>
     </div>
+    <esxi-datastores></esxi-datastores>
   </div>
 </template>

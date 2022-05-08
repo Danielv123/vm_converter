@@ -2,6 +2,7 @@ import fs from "fs/promises";
 
 const datastore = {
   servers: [],
+  tasks: [],
 };
 const defaultDatastore = {
   servers: [
@@ -50,6 +51,7 @@ const defaultDatastore = {
       type: "proxmox",
     },
   ],
+  tasks: [],
 };
 
 async function loadDatastore() {
