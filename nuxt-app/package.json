@@ -12,6 +12,7 @@
     "unplugin-vue-components": "^0.19.3"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
     "ant-design-vue": "^3.2.1",
     "node-powershell": "^5.0.1",
     "uuid": "^8.3.2"
