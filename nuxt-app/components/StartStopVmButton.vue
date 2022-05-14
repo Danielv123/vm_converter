@@ -1,7 +1,7 @@
 <template>
   <div class="test2">
     <a-button
-      v-if="[-1].includes(props.vm?.PowerState)"
+      v-if="[-1].includes(props.vm?.PowerState || props.vm.status)"
       type="primary"
       :disabled="true"
       :loading="loading"
@@ -9,14 +9,14 @@
       >Start</a-button
     >
     <a-button
-      v-if="[0].includes(props.vm?.PowerState)"
+      v-if="[0, 'stopped'].includes(props.vm?.PowerState || props.vm.status)"
       size="small"
       :loading="loading"
       v-on:click="start_vm(props.vm)"
       >Start</a-button
     >
     <a-button
-      v-if="[1].includes(props.vm?.PowerState)"
+      v-if="[1, 'running'].includes(props.vm?.PowerState || props.vm.status) && props.type !== 'proxmox'"
       size="small"
       :loading="loading"
       v-on:click="suspend_vm(props.vm)"
@@ -24,7 +24,7 @@
       >Suspend</a-button
     >
     <a-button
-      v-if="[1].includes(props.vm?.PowerState)"
+      v-if="[1, 'running'].includes(props.vm?.PowerState || props.vm.status)"
       size="small"
       :loading="loading"
       v-on:click="stop_vm(props.vm)"
@@ -32,7 +32,7 @@
       >Stop</a-button
     >
     <a-button
-      v-if="[2].includes(props.vm?.PowerState)"
+      v-if="[2].includes(props.vm?.PowerState || props.vm.status)"
       size="small"
       :loading="loading"
       v-on:click="start_vm(props.vm)"
@@ -58,7 +58,7 @@ async function start_vm(vm) {
   console.log(`Starting`, vm.Name);
   loading.value = true;
   const { data: result } = await $fetch(
-    `/api/host/esxi/${route.params.server_id}/vm/${props.name}/start`,
+    `/api/host/${props.type}/${route.params.server_id}/vm/${props.name}/start`,
   );
   loading.value = false;
   props.update_vm?.(vm);
@@ -68,7 +68,7 @@ async function stop_vm(vm) {
   console.log(`Stopping`, vm.Name);
   loading.value = true;
   const { data: result } = await $fetch(
-    `/api/host/esxi/${route.params.server_id}/vm/${props.name}/stop`,
+    `/api/host/${props.type}/${route.params.server_id}/vm/${props.name}/stop`,
   );
   loading.value = false;
   props.update_vm?.(vm);
@@ -78,7 +78,7 @@ async function suspend_vm(vm) {
   console.log(`Suspend`, vm.Name);
   loading.value = true;
   const { data: result } = await $fetch(
-    `/api/host/esxi/${route.params.server_id}/vm/${props.name}/suspend`,
+    `/api/host/${props.type}/${route.params.server_id}/vm/${props.name}/suspend`,
   );
   loading.value = false;
   props.update_vm?.(vm);

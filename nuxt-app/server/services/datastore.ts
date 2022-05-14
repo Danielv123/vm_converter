@@ -16,9 +16,11 @@ const defaultDatastore = {
     },
     {
       id: "2",
-      name: "Server 2",
-      ip: "192.168.10.53",
+      name: "Proxmox 1",
+      ip: "192.168.10.41",
       type: "proxmox",
+      username: "root",
+      password: "Monster123",
     },
     {
       id: "3",
