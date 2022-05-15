@@ -21,6 +21,19 @@ The setup will consist of a few different parts:
 2. Proxmox host
 3. Frontend in Vue
 4. Backend
+5. SSH keys
+
+The SSH keys are used for SCP transfers. They are generated with ssh-keygen:
+
+    ssh-keygen -t rsa -b 8192 -f ~/.ssh/id_rsa -N ""
+
+The key is then added to the proxmox nodes using the following command:
+
+    sshpass -p Monster123 ssh-copy-id -o StrictHostKeychecking=no -i ~/.ssh/id_rsa.pub root@192.168.10.41
+
+And for esxi nodes we download the existing key from the server:
+
+    sshpass -p Monster123! scp -o StrictHostKeychecking=no ~/.ssh/id_rsa.pub root@192.168.10.52:/etc/ssh/keys-root/authorized_keys
 
 The backend needs the following tools
 
@@ -35,12 +48,17 @@ To migrate a vm from esxi to proxmox:
 
 1. PowerCLI gets the VM listing, datastore and directory
 2. Stop the VM
-3. Move the VM to the server for conversion
+3. Move the VM to the server for conversion using SCP
 4. Convert .vmdk to .qcow2 using qemu-img
 5. Convert vmware .vmx to kvm .conf using custom tool
-6. Move .qcow2 and .conf file to proxmox node
-7. Register the VM using proxmox API
-8. Start the VM
+6. Register the VM using proxmox API
+7. Start the VM
+
+Scp command:
+
+    scp -rB3 root@192.168.10.52:/vmfs/volumes/ssd3/tailscale-home root@192.168.10.41:/root/tailscale-home
+
+Adding the `C` flag for compression may reduce transfer time over WAN, but it is left out since it is not able to achieve 1 gbps.
 
 ## Config files
 

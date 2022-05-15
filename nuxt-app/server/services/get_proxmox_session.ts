@@ -23,6 +23,7 @@ async function get_pve_session({ id, ip, username, password }) {
     session.ready = await session.client.login(username, password, "pam");
     return session.client;
   } else {
+    pve_sessions[id].ready = await pve_sessions[id].client.login(username, password, "pam");
     if (!pve_sessions[id].ready) await waitForReady(pve_sessions[id]);
     return pve_sessions[id].client;
   }

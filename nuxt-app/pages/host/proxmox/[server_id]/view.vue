@@ -93,6 +93,8 @@
         </a-table>
       </div>
     </div>
+    <h2>Datastores</h2>
+    <proxmox-datastores-table />
   </div>
 </template>
 
