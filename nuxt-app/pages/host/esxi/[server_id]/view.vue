@@ -6,21 +6,22 @@ const resp = await useFetch(`/api/host/esxi/${route.params.server_id}/view`);
 const server = resp.data;
 const { pending, error, refresh } = resp;
 
-const { pending: vms_pending, data: vms, refresh: refreshVms } = useFetch(
-  `/api/host/esxi/${route.params.server_id}/list_vms`,
-  {
-    lazy: true,
-    transform: (data) => {
-      let vms = JSON.parse(data);
-      return vms.map((vm) => {
-        return {
-          ...vm,
-          key: vm.Uid,
-        };
-      });
-    },
+const {
+  pending: vms_pending,
+  data: vms,
+  refresh: refreshVms,
+} = useFetch(`/api/host/esxi/${route.params.server_id}/list_vms`, {
+  lazy: true,
+  transform: (data) => {
+    let vms = JSON.parse(data);
+    return vms.map((vm) => {
+      return {
+        ...vm,
+        key: vm.Uid,
+      };
+    });
   },
-);
+});
 
 const hideLoading = ref(false);
 setInterval(async () => {
@@ -74,13 +75,24 @@ function toggleEdit() {
     <h2>vms</h2>
     <div>
       <div>
-        <a-table :dataSource="vms" :loading="vms_pending && !hideLoading" size="small">
+        <a-table
+          :dataSource="vms"
+          :loading="vms_pending && !hideLoading"
+          size="small"
+        >
           <a-table-column title="Name" dataIndex="Name" key="Name" />
           <a-table-column title="State" dataIndex="PowerState" key="State">
             <template #default="{ value: PowerState }">
-              <a-tag :color="powerStates[PowerState == undefined? 'unknown' : PowerState]?.color">{{
-                powerStates[PowerState == undefined? 'unknown' : PowerState]?.text
-              }}</a-tag>
+              <a-tag
+                :color="
+                  powerStates[PowerState == undefined ? 'unknown' : PowerState]
+                    ?.color
+                "
+                >{{
+                  powerStates[PowerState == undefined ? "unknown" : PowerState]
+                    ?.text
+                }}</a-tag
+              >
             </template>
           </a-table-column>
           <a-table-column title="Memory" dataIndex="MemoryMB" key="Memory">
@@ -92,6 +104,12 @@ function toggleEdit() {
           <a-table-column title="Id" dataIndex="Id" key="Id">
             <template #default="{ record, value: vmId }">
               <span>{{ vmId }}</span>
+              <NuxtLink v-bind:to="`/host/${server.type}/${server.id}/vm/${vmId}/migrate`">
+                <a-button size="small" class="floatright">
+                  <a-icon type="edit" />
+                  Migrate
+                </a-button>
+              </NuxtLink>
               <start-stop-vm-button
                 :type="server.type"
                 :server_id="route.params.server_id"

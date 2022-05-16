@@ -6,6 +6,7 @@ export default defineEventHandler(async (event): Promise<string> => {
     (server) => server.id === event.context.params.serverid,
   );
   if (!server) {
+    return "[]";
     throw new Error("Server not found");
   }
 

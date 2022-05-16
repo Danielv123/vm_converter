@@ -1,5 +1,5 @@
 <template>
-  <div class="test2">
+  <div class="floatright">
     <a-button
       v-if="[-1].includes(props.vm?.PowerState || props.vm.status)"
       type="primary"
@@ -86,7 +86,7 @@ async function suspend_vm(vm) {
 </script>
 
 <style>
-.test2 {
+.floatright {
   float: right;
 }
 .warning {

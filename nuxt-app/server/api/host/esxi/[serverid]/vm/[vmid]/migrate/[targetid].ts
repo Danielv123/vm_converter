@@ -1,7 +1,24 @@
-import datastore from "~~/server/services/datastore";
+import datastore, { saveDatastore } from "~~/server/services/datastore";
 import { v4 as uuidv4 } from "uuid";
 
-export default defineEventHandler(async (event): Promise<string> => {
+interface Migration {
+  id: string;
+  type: string;
+  serverid: number;
+  targetid: number;
+  started: number;
+  completed: boolean;
+  steps: MigrationStep[];
+}
+
+interface MigrationStep {
+  description: string;
+  originid?: number;
+  targetid?: number;
+  vmid?: string;
+}
+
+export default defineEventHandler(async (event): Promise<Migration> => {
   let server = datastore.servers.find(
     (server) => server.id === event.context.params.serverid,
   );
@@ -10,8 +27,9 @@ export default defineEventHandler(async (event): Promise<string> => {
   }
 
   // Create a new migration task
-  let migration = {
+  let migration: Migration = {
     id: uuidv4(),
+    type: "migration",
     serverid: server.id,
     targetid: event.context.params.targetid,
     started: Date.now(),
@@ -41,6 +59,7 @@ export default defineEventHandler(async (event): Promise<string> => {
     ],
   };
   datastore.tasks.push(migration);
+  await saveDatastore();
 
-  return migration.id;
+  return migration;
 });

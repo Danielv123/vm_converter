@@ -58,7 +58,7 @@ const defaultDatastore = {
 
 async function loadDatastore() {
   await fs
-    .readFile("./datastore.json", "utf8")
+    .readFile("./../datastore.json", "utf8")
     .then((data) => {
         const parsed = JSON.parse(data);
         for (const key in parsed) {
@@ -77,7 +77,7 @@ async function loadDatastore() {
 loadDatastore();
 
 async function saveDatastore() {
-    await fs.writeFile("./datastore.json", JSON.stringify(datastore, null, 2));
+    await fs.writeFile("./../datastore.json", JSON.stringify(datastore, null, 2));
 }
 
 export default datastore;
