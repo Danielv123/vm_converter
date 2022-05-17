@@ -2,7 +2,7 @@
 const { $store } = useNuxtApp();
 const route = useRoute();
 
-const resp = await useFetch(`/api/host/esxi/${route.params.server_id}/view`);
+const resp = useFetch(`/api/host/esxi/${route.params.server_id}/view`);
 const server = resp.data;
 const { pending, error, refresh } = resp;
 
@@ -24,11 +24,14 @@ const {
 });
 
 const hideLoading = ref(false);
-setInterval(async () => {
+const interval = setInterval(async () => {
   hideLoading.value = true;
   await refreshVms();
   hideLoading.value = false;
 }, 10000);
+onUnmounted(() => {
+  clearInterval(interval);
+});
 
 const powerStates = {
   1: { text: "Running", color: "green" },
@@ -106,7 +109,7 @@ function toggleEdit() {
               <span>{{ vmId }}</span>
               <NuxtLink v-bind:to="`/host/${server.type}/${server.id}/vm/${vmId}/migrate`">
                 <a-button size="small" class="floatright">
-                  <a-icon type="edit" />
+                  <!-- <a-icon type="edit" /> -->
                   Migrate
                 </a-button>
               </NuxtLink>

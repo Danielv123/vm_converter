@@ -21,7 +21,7 @@ RUN curl  https://packages.microsoft.com/keys/microsoft.asc > MS.key
 RUN apt-key add MS.key
 RUN curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | sudo tee /etc/apt/sources.list.d/microsoft.list
 RUN sudo apt-get update
-RUN sudo apt-get install -y powershell qemu-utils
+RUN sudo apt-get install -y powershell qemu-utils sshpass
 
 USER node
 

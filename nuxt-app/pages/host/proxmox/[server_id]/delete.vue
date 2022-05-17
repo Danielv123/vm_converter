@@ -1,6 +1,6 @@
 <script setup>
 const route = useRoute();
-const resp = await useFetch(`/api/host/proxmox/${route.params.server_id}/view`);
+const resp = useFetch(`/api/host/proxmox/${route.params.server_id}/view`);
 const server = resp.data;
 const { pending, error, refresh } = resp;
 </script>

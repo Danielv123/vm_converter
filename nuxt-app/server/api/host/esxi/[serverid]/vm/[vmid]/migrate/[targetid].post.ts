@@ -13,9 +13,17 @@ interface Migration {
 
 interface MigrationStep {
   description: string;
+  status: MigrationStatus;
   originid?: number;
   targetid?: number;
   vmid?: string;
+}
+
+enum MigrationStatus {
+  Pending = "pending",
+  Running = "running",
+  Completed = "completed",
+  Failed = "failed",
 }
 
 export default defineEventHandler(async (event): Promise<Migration> => {
@@ -37,24 +45,30 @@ export default defineEventHandler(async (event): Promise<Migration> => {
     steps: [
       {
         description: "Stop VM",
+        status: MigrationStatus.Pending,
       },
       {
         description: "Move VM to proxmox server",
+        status: MigrationStatus.Pending,
         originid: event.context.params.serverid,
         vmid: event.context.params.vmid,
         targetid: event.context.params.targetid,
       },
       {
         description: "Convert VM disk",
+        status: MigrationStatus.Pending,
       },
       {
         description: "Convert VM config",
+        status: MigrationStatus.Pending,
       },
       {
         description: "Register VM",
+        status: MigrationStatus.Pending,
       },
       {
         description: "Start VM",
+        status: MigrationStatus.Pending,
       },
     ],
   };

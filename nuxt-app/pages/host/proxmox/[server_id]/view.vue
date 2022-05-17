@@ -102,7 +102,7 @@
 const { $store } = useNuxtApp();
 const route = useRoute();
 
-const resp = await useFetch(`/api/host/proxmox/${route.params.server_id}/view`);
+const resp = useFetch(`/api/host/proxmox/${route.params.server_id}/view`);
 const server = resp.data;
 const { pending, error, refresh } = resp;
 
@@ -115,11 +115,14 @@ const {
 });
 
 const hideLoading = ref(false);
-setInterval(async () => {
+const interval = setInterval(async () => {
   hideLoading.value = true;
   await refreshVms();
   hideLoading.value = false;
 }, 10000);
+onUnmounted(() => {
+  clearInterval(interval);
+});
 
 const powerStates = {
   running: { text: "Running", color: "green" },

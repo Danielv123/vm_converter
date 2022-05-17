@@ -1,5 +1,5 @@
 <script setup>
-const resp = await useFetch("/api/servers");
+const resp = useFetch("/api/servers");
 const servers = resp.data;
 const { pending, error, refresh } = resp;
 refresh();
