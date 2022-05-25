@@ -1,3 +1,16 @@
+# Tailscale:
+FROM mcr.microsoft.com/vscode/devcontainers/universal:linux as builder
+USER root
+
+# Magic DNS in a container where /etc/resolv.conf is a bind mount needed
+# extra support, currently on a development branch.
+WORKDIR /go/src/tailscale
+COPY . ./
+RUN git clone https://github.com/tailscale/tailscale.git && cd tailscale && \
+    go mod download && \
+    go install -mod=readonly ./cmd/tailscaled ./cmd/tailscale
+COPY . ./
+
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/javascript-node/.devcontainer/base.Dockerfile
 
 # [Choice] Node.js version (use -bullseye variants on local arm64/Apple Silicon): 16, 14, 12, 16-bullseye, 14-bullseye, 12-bullseye, 16-buster, 14-buster, 12-buster
@@ -22,6 +35,14 @@ RUN apt-key add MS.key
 RUN curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | sudo tee /etc/apt/sources.list.d/microsoft.list
 RUN sudo apt-get update
 RUN sudo apt-get install -y powershell qemu-utils sshpass
+
+# Tailscale
+USER root
+RUN apt-get update && apt-get install -y curl gpg dnsutils
+COPY tailscaled /etc/init.d
+COPY --from=builder /go/bin/tailscaled /usr/sbin/tailscaled
+COPY --from=builder /go/bin/tailscale /usr/bin/tailscale
+RUN mkdir -p /var/run/tailscale /var/cache/tailscale /var/lib/tailscale
 
 USER node
 
