@@ -60,6 +60,10 @@ Scp command:
 
 Adding the `C` flag for compression may reduce transfer time over WAN, but it is left out since it is not able to achieve 1 gbps.
 
+Image conversion command:
+
+    qemu-img convert -f vmdk windows_xp_64/windows_xp_64.vmdk -O qcow2 /var/lib/vz/images/102/windows_xp_64.qcow2
+
 ## Config files
 
 On kvm:
