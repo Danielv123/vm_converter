@@ -1,6 +1,26 @@
 import fs from "fs/promises";
+import Migration from "~~/server/util/types/Migration";
 
-const datastore = {
+interface Datastore {
+  servers: Server[];
+  tasks: Migration[];
+}
+
+interface Server {
+  id: string;
+  name: string;
+  ip: string;
+  type: ServerType;
+  username: string;
+  password: string;
+}
+
+enum ServerType {
+  Esxi = "esxi",
+  Proxmox = "proxmox"
+}
+
+const datastore: Datastore = {
   servers: [],
   tasks: [],
 };

@@ -49,62 +49,47 @@
   ],
   "tasks": [
     {
-      "id": "96ee3d7f-273b-4147-963b-9091ae7f2ca8",
+      "id": "ccd340de-bec8-4b10-9c70-168d3c105977",
+      "type": "migration",
       "serverid": "1",
       "targetid": "2",
-      "started": 1652734193655,
+      "started": 1653847093633,
       "completed": null,
       "steps": [
         {
-          "description": "Stop VM"
+          "type": "stop_esxi_vm",
+          "description": "Stop VM",
+          "status": "pending",
+          "serverid": "1",
+          "vmid": "VirtualMachine-23"
         },
         {
+          "type": "move_esxi_vm",
           "description": "Move VM to proxmox server",
+          "status": "pending",
           "originid": "1",
           "vmid": "VirtualMachine-23",
           "targetid": "2"
         },
         {
-          "description": "Convert VM disk"
+          "type": "convert_vm_disk",
+          "description": "Convert VM disk",
+          "status": "pending"
         },
         {
-          "description": "Convert VM config"
+          "type": "convert_vm_config",
+          "description": "Convert VM config",
+          "status": "pending"
         },
         {
-          "description": "Register VM"
+          "type": "register_pve_vm",
+          "description": "Register VM",
+          "status": "pending"
         },
         {
-          "description": "Start VM"
-        }
-      ]
-    },
-    {
-      "id": "4fabe33e-6a74-4140-9478-e3393ff06565",
-      "serverid": "1",
-      "targetid": "2",
-      "started": 1652734497948,
-      "completed": null,
-      "steps": [
-        {
-          "description": "Stop VM"
-        },
-        {
-          "description": "Move VM to proxmox server",
-          "originid": "1",
-          "vmid": "VirtualMachine-23",
-          "targetid": "2"
-        },
-        {
-          "description": "Convert VM disk"
-        },
-        {
-          "description": "Convert VM config"
-        },
-        {
-          "description": "Register VM"
-        },
-        {
-          "description": "Start VM"
+          "type": "start_pve_vm",
+          "description": "Start VM",
+          "status": "pending"
         }
       ]
     }
