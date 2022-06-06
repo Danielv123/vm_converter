@@ -14,6 +14,9 @@ export default defineEventHandler(async (event): Promise<string> => {
   let output = (
     await shell.create(
       `/nodes/pve/qemu/${event.context.params.vmid}/status/suspend`,
+      {
+        todisk: true,
+      },
     )
   ).response;
 
