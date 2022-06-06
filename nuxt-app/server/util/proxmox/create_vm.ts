@@ -18,7 +18,7 @@ export default async function create_vm(
   let output = (
     await shell.create(`/nodes/pve/qemu`, {
       node: "pve",
-      vmid: Math.floor(Math.random() * 1000),
+      vmid: vmoptions.vmid || Math.floor(Math.random() * 1000),
       ...vmoptions,
       name: vmoptions.name.replaceAll(/[^.a-zA-Z\d]/, "-"), // only DNS-safe characters
     })

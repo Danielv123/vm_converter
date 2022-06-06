@@ -38,7 +38,7 @@ export default defineEventHandler(async (event): Promise<Migration> => {
         description: "Create target VM",
         status: MigrationStatus.Pending,
         serverid: "2",
-        vmid: Math.floor(Math.random() * 10000).toString(),
+        vmid: Math.floor(Math.random() * 10000),
       },
       {
         type: "move_esxi_vm",

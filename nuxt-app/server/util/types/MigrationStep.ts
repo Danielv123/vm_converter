@@ -7,5 +7,5 @@ export default interface MigrationStep {
   serverid?: string;
   originid?: string;
   targetid?: string;
-  vmid?: string;
+  vmid?: number;
 }

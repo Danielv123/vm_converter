@@ -8,6 +8,6 @@ export default interface Migration {
   targetid: string;
   started: number;
   completed: boolean;
-    steps: MigrationStep[];
-    formstate: object;
+  steps: MigrationStep[];
+  formstate: object;
 }
