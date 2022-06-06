@@ -68,6 +68,10 @@ interface ProxmoxVmOptions {
   tags?: string;
   template?: boolean;
   unique?: boolean;
+  net0?: string;
+  net1?: string;
+    net2?: string;
+    onboot?: boolean;
 }
 
 export default ProxmoxVmOptions;

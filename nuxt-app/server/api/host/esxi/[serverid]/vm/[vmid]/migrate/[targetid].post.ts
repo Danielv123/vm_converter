@@ -13,12 +13,16 @@ export default defineEventHandler(async (event): Promise<Migration> => {
     throw new Error("Server not found");
   }
 
+  const formstate = await useBody(event);
+
   // Create a new migration task
   let migration: Migration = {
     id: uuidv4(),
     type: "migration",
     serverid: server.id,
+    originvmid: event.context.params.vmid,
     targetid: event.context.params.targetid,
+    formstate: formstate,
     started: Date.now(),
     completed: null,
     steps: [
@@ -28,6 +32,13 @@ export default defineEventHandler(async (event): Promise<Migration> => {
         status: MigrationStatus.Pending,
         serverid: event.context.params.serverid,
         vmid: event.context.params.vmid,
+      },
+      {
+        type: "create_proxmox_vm",
+        description: "Create target VM",
+        status: MigrationStatus.Pending,
+        serverid: "2",
+        vmid: Math.floor(Math.random() * 10000).toString(),
       },
       {
         type: "move_esxi_vm",

@@ -64,11 +64,434 @@
           "vmid": "VirtualMachine-23"
         },
         {
+          "type": "create_proxmox_vm",
+          "description": "Create target VM",
+          "status": "pending",
+          "serverid": "2",
+          "vmid": "999"
+        },
+        {
           "type": "move_esxi_vm",
           "description": "Move VM to proxmox server",
           "status": "pending",
           "originid": "1",
           "vmid": "VirtualMachine-23",
+          "targetid": "2"
+        },
+        {
+          "type": "convert_vm_disk",
+          "description": "Convert VM disk",
+          "status": "pending"
+        },
+        {
+          "type": "convert_vm_config",
+          "description": "Convert VM config",
+          "status": "pending"
+        },
+        {
+          "type": "register_pve_vm",
+          "description": "Register VM",
+          "status": "pending"
+        },
+        {
+          "type": "start_pve_vm",
+          "description": "Start VM",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "00900692-e31a-4126-959d-03dc0b497059",
+      "type": "migration",
+      "serverid": "1",
+      "originvmid": "VirtualMachine-23",
+      "targetid": "2",
+      "started": 1653935793682,
+      "completed": null,
+      "steps": [
+        {
+          "type": "stop_esxi_vm",
+          "description": "Stop VM",
+          "status": "pending",
+          "serverid": "1",
+          "vmid": "VirtualMachine-23"
+        },
+        {
+          "type": "create_proxmox_vm",
+          "description": "Create target VM",
+          "status": "pending",
+          "serverid": "2",
+          "vmid": 5026
+        },
+        {
+          "type": "move_esxi_vm",
+          "description": "Move VM to proxmox server",
+          "status": "pending",
+          "originid": "1",
+          "vmid": "VirtualMachine-23",
+          "targetid": "2"
+        },
+        {
+          "type": "convert_vm_disk",
+          "description": "Convert VM disk",
+          "status": "pending"
+        },
+        {
+          "type": "convert_vm_config",
+          "description": "Convert VM config",
+          "status": "pending"
+        },
+        {
+          "type": "register_pve_vm",
+          "description": "Register VM",
+          "status": "pending"
+        },
+        {
+          "type": "start_pve_vm",
+          "description": "Start VM",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "f8a71d36-aea4-4846-82e7-f0af801b536d",
+      "type": "migration",
+      "serverid": "1",
+      "originvmid": "VirtualMachine-23",
+      "targetid": "2",
+      "started": 1653935812784,
+      "completed": null,
+      "steps": [
+        {
+          "type": "stop_esxi_vm",
+          "description": "Stop VM",
+          "status": "pending",
+          "serverid": "1",
+          "vmid": "VirtualMachine-23"
+        },
+        {
+          "type": "create_proxmox_vm",
+          "description": "Create target VM",
+          "status": "pending",
+          "serverid": "2",
+          "vmid": 8601
+        },
+        {
+          "type": "move_esxi_vm",
+          "description": "Move VM to proxmox server",
+          "status": "pending",
+          "originid": "1",
+          "vmid": "VirtualMachine-23",
+          "targetid": "2"
+        },
+        {
+          "type": "convert_vm_disk",
+          "description": "Convert VM disk",
+          "status": "pending"
+        },
+        {
+          "type": "convert_vm_config",
+          "description": "Convert VM config",
+          "status": "pending"
+        },
+        {
+          "type": "register_pve_vm",
+          "description": "Register VM",
+          "status": "pending"
+        },
+        {
+          "type": "start_pve_vm",
+          "description": "Start VM",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "ff57c1ea-3865-470c-8a49-9e6e91bdb4f3",
+      "type": "migration",
+      "serverid": "1",
+      "originvmid": "VirtualMachine-21",
+      "targetid": "2",
+      "formstate": {
+        "target_server_id": "2",
+        "target_datastore": "local"
+      },
+      "started": 1654365539525,
+      "completed": null,
+      "steps": [
+        {
+          "type": "stop_esxi_vm",
+          "description": "Stop VM",
+          "status": "pending",
+          "serverid": "1",
+          "vmid": "VirtualMachine-21"
+        },
+        {
+          "type": "create_proxmox_vm",
+          "description": "Create target VM",
+          "status": "pending",
+          "serverid": "2",
+          "vmid": "5244"
+        },
+        {
+          "type": "error",
+          "description": "Error out, stopping task execution",
+          "status": "pending"
+        },
+        {
+          "type": "move_esxi_vm",
+          "description": "Move VM to proxmox server",
+          "status": "pending",
+          "originid": "1",
+          "vmid": "VirtualMachine-21",
+          "targetid": "2"
+        },
+        {
+          "type": "convert_vm_disk",
+          "description": "Convert VM disk",
+          "status": "pending"
+        },
+        {
+          "type": "convert_vm_config",
+          "description": "Convert VM config",
+          "status": "pending"
+        },
+        {
+          "type": "register_pve_vm",
+          "description": "Register VM",
+          "status": "pending"
+        },
+        {
+          "type": "start_pve_vm",
+          "description": "Start VM",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "853d002d-5ced-4fd2-8d56-e8c37df0ec35",
+      "type": "migration",
+      "serverid": "1",
+      "originvmid": "VirtualMachine-21",
+      "targetid": "2",
+      "formstate": {
+        "target_server_id": "2",
+        "target_datastore": "local"
+      },
+      "started": 1654514271826,
+      "completed": null,
+      "steps": [
+        {
+          "type": "stop_esxi_vm",
+          "description": "Stop VM",
+          "status": "pending",
+          "serverid": "1",
+          "vmid": "VirtualMachine-21"
+        },
+        {
+          "type": "create_proxmox_vm",
+          "description": "Create target VM",
+          "status": "pending",
+          "serverid": "2",
+          "vmid": "3785"
+        },
+        {
+          "type": "error",
+          "description": "Error out, stopping task execution",
+          "status": "pending"
+        },
+        {
+          "type": "move_esxi_vm",
+          "description": "Move VM to proxmox server",
+          "status": "pending",
+          "originid": "1",
+          "vmid": "VirtualMachine-21",
+          "targetid": "2"
+        },
+        {
+          "type": "convert_vm_disk",
+          "description": "Convert VM disk",
+          "status": "pending"
+        },
+        {
+          "type": "convert_vm_config",
+          "description": "Convert VM config",
+          "status": "pending"
+        },
+        {
+          "type": "register_pve_vm",
+          "description": "Register VM",
+          "status": "pending"
+        },
+        {
+          "type": "start_pve_vm",
+          "description": "Start VM",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "65b8814e-8c5a-4171-bd04-071d7f074534",
+      "type": "migration",
+      "serverid": "1",
+      "originvmid": "VirtualMachine-21",
+      "targetid": "2",
+      "formstate": {
+        "target_server_id": "2",
+        "target_datastore": "local"
+      },
+      "started": 1654514310240,
+      "completed": null,
+      "steps": [
+        {
+          "type": "stop_esxi_vm",
+          "description": "Stop VM",
+          "status": "pending",
+          "serverid": "1",
+          "vmid": "VirtualMachine-21"
+        },
+        {
+          "type": "create_proxmox_vm",
+          "description": "Create target VM",
+          "status": "pending",
+          "serverid": "2",
+          "vmid": "7551"
+        },
+        {
+          "type": "error",
+          "description": "Error out, stopping task execution",
+          "status": "pending"
+        },
+        {
+          "type": "move_esxi_vm",
+          "description": "Move VM to proxmox server",
+          "status": "pending",
+          "originid": "1",
+          "vmid": "VirtualMachine-21",
+          "targetid": "2"
+        },
+        {
+          "type": "convert_vm_disk",
+          "description": "Convert VM disk",
+          "status": "pending"
+        },
+        {
+          "type": "convert_vm_config",
+          "description": "Convert VM config",
+          "status": "pending"
+        },
+        {
+          "type": "register_pve_vm",
+          "description": "Register VM",
+          "status": "pending"
+        },
+        {
+          "type": "start_pve_vm",
+          "description": "Start VM",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "cbd29068-373e-41e6-b3a8-066515bcb946",
+      "type": "migration",
+      "serverid": "1",
+      "originvmid": "VirtualMachine-21",
+      "targetid": "2",
+      "formstate": {
+        "target_server_id": "2",
+        "target_datastore": "local"
+      },
+      "started": 1654514579759,
+      "completed": null,
+      "steps": [
+        {
+          "type": "stop_esxi_vm",
+          "description": "Stop VM",
+          "status": "pending",
+          "serverid": "1",
+          "vmid": "VirtualMachine-21"
+        },
+        {
+          "type": "create_proxmox_vm",
+          "description": "Create target VM",
+          "status": "pending",
+          "serverid": "2",
+          "vmid": "437"
+        },
+        {
+          "type": "error",
+          "description": "Error out, stopping task execution",
+          "status": "pending"
+        },
+        {
+          "type": "move_esxi_vm",
+          "description": "Move VM to proxmox server",
+          "status": "pending",
+          "originid": "1",
+          "vmid": "VirtualMachine-21",
+          "targetid": "2"
+        },
+        {
+          "type": "convert_vm_disk",
+          "description": "Convert VM disk",
+          "status": "pending"
+        },
+        {
+          "type": "convert_vm_config",
+          "description": "Convert VM config",
+          "status": "pending"
+        },
+        {
+          "type": "register_pve_vm",
+          "description": "Register VM",
+          "status": "pending"
+        },
+        {
+          "type": "start_pve_vm",
+          "description": "Start VM",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "5cb82c1c-d385-40d9-9d0c-ae3ad401ca49",
+      "type": "migration",
+      "serverid": "1",
+      "originvmid": "VirtualMachine-21",
+      "targetid": "2",
+      "formstate": {
+        "target_server_id": "2",
+        "target_datastore": "local"
+      },
+      "started": 1654514811652,
+      "completed": null,
+      "steps": [
+        {
+          "type": "stop_esxi_vm",
+          "description": "Stop VM",
+          "status": "pending",
+          "serverid": "1",
+          "vmid": "VirtualMachine-21"
+        },
+        {
+          "type": "create_proxmox_vm",
+          "description": "Create target VM",
+          "status": "pending",
+          "serverid": "2",
+          "vmid": "8397"
+        },
+        {
+          "type": "error",
+          "description": "Error out, stopping task execution",
+          "status": "pending"
+        },
+        {
+          "type": "move_esxi_vm",
+          "description": "Move VM to proxmox server",
+          "status": "pending",
+          "originid": "1",
+          "vmid": "VirtualMachine-21",
           "targetid": "2"
         },
         {
