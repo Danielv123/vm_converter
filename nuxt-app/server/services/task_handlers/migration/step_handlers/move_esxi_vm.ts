@@ -27,7 +27,7 @@ export default async function move_esxi_vm(
 
   await new Promise((resolve) => {
     const origin = `root@${originserver.ip}:/vmfs/volumes/${datastoreinfo.Name}/${vminfo.Name}`;
-    const destination = `root@${destinationserver.ip}:/root/${vminfo.Name}`;
+    const destination = `${destinationserver.username}@${destinationserver.ip}:/root/${vminfo.Name}`;
     console.log(
       "Moving disks for VM",
       vminfo.Name,

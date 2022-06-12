@@ -16,6 +16,7 @@ export default defineEventHandler(async (event): Promise<Migration> => {
   const formstate = await useBody(event);
 
   // Create a new migration task
+  const vmid = Math.floor(Math.random() * 10000);
   let migration: Migration = {
     id: uuidv4(),
     type: "migration",
@@ -38,7 +39,7 @@ export default defineEventHandler(async (event): Promise<Migration> => {
         description: "Create target VM",
         status: MigrationStatus.Pending,
         serverid: "2",
-        vmid: Math.floor(Math.random() * 10000),
+        vmid,
       },
       {
         type: "move_esxi_vm",
@@ -52,21 +53,25 @@ export default defineEventHandler(async (event): Promise<Migration> => {
         type: "convert_vm_disk",
         description: "Convert VM disk",
         status: MigrationStatus.Pending,
+        vmid,
       },
       {
         type: "convert_vm_config",
         description: "Convert VM config",
         status: MigrationStatus.Pending,
+        vmid,
       },
       {
         type: "register_pve_vm",
         description: "Register VM",
         status: MigrationStatus.Pending,
+        vmid,
       },
       {
         type: "start_pve_vm",
         description: "Start VM",
         status: MigrationStatus.Pending,
+        vmid,
       },
     ],
   };
